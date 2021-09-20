@@ -4,6 +4,7 @@ interface SideBarProps {
   selectedGenreId: number;
   genres: Array<{
     id: number;
+    stringifiedId: string;
     name: "action" | "comedy" | "documentary" | "drama" | "horror" | "family";
     title: string;
   }>;
@@ -22,7 +23,7 @@ export function SideBar(props: SideBarProps) {
         {props.genres.map((genre) => (
           <Button
             key={genre.id}
-            id={String(genre.id)}
+            id={genre.stringifiedId}
             title={genre.title}
             iconName={genre.name}
             onClick={() => props.onClickButton(genre.id)}

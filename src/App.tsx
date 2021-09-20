@@ -9,9 +9,11 @@ import "./styles/global.scss";
 
 import "./styles/sidebar.scss";
 import "./styles/content.scss";
+import { AxiosResponse } from "axios";
 
 interface GenreResponseProps {
   id: number;
+  stringifiedId: string;
   name: "action" | "comedy" | "documentary" | "drama" | "horror" | "family";
   title: string;
 }
@@ -37,9 +39,18 @@ export function App() {
   );
 
   useEffect(() => {
-    api.get<GenreResponseProps[]>("genres").then((response) => {
-      setGenres(response.data);
-    });
+    api
+      .get<GenreResponseProps[]>("genres")
+      .then((response: AxiosResponse<GenreResponseProps[]>) => {
+        const formattedGenres = response.data.map((genre) => {
+          return {
+            ...genre,
+            stringifiedId: String(genre.id),
+          };
+        });
+
+        setGenres(formattedGenres);
+      });
   }, []);
 
   useEffect(() => {
