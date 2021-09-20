@@ -28,6 +28,7 @@ export function Content(props: ContentProps) {
         <div className="movies-list">
           {props.movies.map((movie) => (
             <MovieCard
+              key={movie.Title}
               title={movie.Title}
               poster={movie.Poster}
               runtime={movie.Runtime}
